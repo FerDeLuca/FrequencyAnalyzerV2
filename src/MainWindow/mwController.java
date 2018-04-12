@@ -1,23 +1,23 @@
 package MainWindow;
 
-import Basic.CryptType;
-import Basic.tFile;
+import Functionality.*;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebView;
+import javafx.util.Callback;
 
-public class Controller {
-    boolean checkColor=true;
-    boolean checkRegistry=true;
-    boolean checkSaveAll=false;
+public class mwController {
 
+    ObservableList<CryptRowType> cryptRows=WorkingCrypt.cryptRows;
     @FXML
     private WebView fxTextOriginal;
     @FXML
@@ -32,20 +32,8 @@ public class Controller {
      * @param actionEvent
      */
     public void CloseProject(ActionEvent actionEvent){
-
         fxSplitter.getItems().clear(); //Очистка существущих окон
-        CryptType.clear();
-        symbRows.clear();
-        Test test;
-        test = (x,y,z)->(x+y)*z;
-        int result = test.calculate(2,3,4);
-
-
-
-    }
-
-    interface  Test{
-        int calculate(int x,int y,int z);
+        WorkingCrypt.clearData(true,true);
     }
 
     /**
@@ -63,6 +51,7 @@ public class Controller {
     public void setWait(boolean status) {
         fxProgress.setDisable(!status);
         fxProgress.setVisible(status);
+        //TODO не работает ProgressBar
     }
 
     /**
@@ -85,7 +74,6 @@ public class Controller {
                 break;
         }
         UpdateModeText(true,true);
-
     }
 
     /**
@@ -118,7 +106,7 @@ public class Controller {
      * @param Original  включить блок оригинального текста
      * @param Result    включить блок текста после обработки(результата)
      */
-    public void TextsSplit(boolean Original, boolean Result){
+    private void TextsSplit(boolean Original, boolean Result){
         fxSplitter.getItems().clear(); //Очистка существущих элементов
         if(Original)
         {
@@ -133,36 +121,14 @@ public class Controller {
 
     }
 
-    /**
-     * Открытие файла с шифротекстом
-     * @param actionEvent
-     */
-    public void OpenProject(ActionEvent actionEvent) {
-
-        tFile file = new tFile();
-        String readStr = file.ReadFile();
-
-
-
-        if (readStr != null) {    //Открытие файла
-            CryptType.setOriginalText(readStr);
-        }
-        if(fxSplitter.getItems().size()==0) //Создание блоков текста, если отсутствуют
-            TextsSplit(true,true);
-
-        UpdateModeText(true,true);
-        UpdateTable();
-
-    }
-
     private void UpdateTable() {
-        if (symbRows ==null)
-            symbRows =FXCollections.observableArrayList();
-        else
-            symbRows.clear();
-        for(CryptType.StatChar sc : CryptType.replChars){
-            symbRows.add(CryptType.StatChar.toSymbRow(sc));
-        }
+//        if (cryptRowTypes ==null)
+//            cryptRowTypes =FXCollections.observableArrayList();
+//        else
+//            cryptRowTypes.clear();
+//        for(WorkingCrypt.CryptRowType sc : WorkingCrypt.cryptRows){
+//            cryptRowTypes.add(WorkingCrypt.CryptRowType.toSymbRow(sc));
+//        }
     }
 
     /**
@@ -171,22 +137,11 @@ public class Controller {
      * @param boolRes Обновить результат
      */
     private void UpdateModeText(boolean boolOrig, boolean boolRes) {
-
         if (boolOrig  && fxTextOriginal!=null) {
-//            list = fxTextOriginal.getChildren();//Ссылка на суб-объекты
-//
-//            if (list.size() > 0)   //Очистка текста
-//                list.clear();
-//            //Разделение текста данных на строки
-//            String[] mas = CryptType.getOriginalText().split("\r\n");
-//
-//            //Перенос по строкам
-//            for(String str : mas)
-//                list.add(new Text(str));
-            fxTextOriginal.getEngine().loadContent(CryptType.getOriginalText(),"text/html");
+            fxTextOriginal.getEngine().loadContent(WorkingCrypt.getOriginalText(),"text/html");
         }
         if (boolRes  && fxTextResult!=null) {
-            fxTextResult.getEngine().loadContent(CryptType.getModifiedText(),"text/html");
+            fxTextResult.getEngine().loadContent(WorkingCrypt.getModifiedText(),"text/html");
         }
 
     }
@@ -200,16 +155,21 @@ public class Controller {
      * @param actionEvent
      */
     public void CheckReg(ActionEvent actionEvent) {
-        checkRegistry = ((CheckMenuItem) actionEvent.getSource()).isSelected();
-        CryptType.toLow=checkRegistry;
-        CryptType.UpdateReplChars();
+        WorkingCrypt.toLow=((CheckMenuItem) actionEvent.getSource()).isSelected();
+        WorkingCrypt.UpdateReplChars();
         UpdateModeText(true,true);
     }
     public void CheckColor(ActionEvent actionEvent) {
-        checkColor = ((CheckMenuItem) actionEvent.getSource()).isSelected();
-        CryptType.colorText=checkColor;
-        CryptType.updateModifiedText();
+        WorkingCrypt.colorText=((CheckMenuItem) actionEvent.getSource()).isSelected();
+        WorkingCrypt.updateModifiedText();
         UpdateModeText(false,true);
+    }
+    /**
+     * Сохранение всех символов, даже не задействованых
+     * @param actionEvent
+     */
+    public void CheckSaveAll(ActionEvent actionEvent) {
+        WorkingCrypt.toLow = ((CheckMenuItem) actionEvent.getSource()).isSelected();
     }
 
     /**
@@ -217,14 +177,13 @@ public class Controller {
      * @param actionEvent
      */
     public void SaveData(ActionEvent actionEvent) {
-
         tFile file = new tFile();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Сохранение данных");
         alert.setHeaderText(null);
 
-        if (file.SaveToFile(CryptType.getStringChars(checkSaveAll)))  //Сохранение в файл
+        if (file.SaveToFile(WorkingCrypt.getStringChars()))  //Сохранение в файл
             alert.setContentText("Файл успешно сохранён!");
         else
             alert.setContentText("Операция отменена, файл не сохранён!");
@@ -244,7 +203,7 @@ public class Controller {
 
         if (readStr != null) {
             mStrs = readStr.split("[\\r\\n]+");//сплит по знаку строки
-            CryptType.setStringChars(mStrs); //Запись в класс
+            WorkingCrypt.setStringChars(mStrs); //Запись в класс
 
             UpdateTable();
             UpdateModeText(true,true);
@@ -255,6 +214,26 @@ public class Controller {
     public void UpdateData(ActionEvent actionEvent) {
         UpdateTable();
         UpdateModeText(false,true); //Обновление окон
+    }
+
+    /**
+     * Открытие файла с шифротекстом
+     * @param actionEvent
+     */
+    public void OpenProject(ActionEvent actionEvent) {
+
+        tFile file = new tFile();
+        String readStr = file.ReadFile();
+
+        if (readStr != null) {    //Открытие файла
+            WorkingCrypt.setOriginalText(readStr);
+        }
+        if(fxSplitter.getItems().size()==0) //Создание блоков текста, если отсутствуют
+            TextsSplit(true,true);
+
+        UpdateModeText(true,true);
+        UpdateTable();
+
     }
 
     /**
@@ -269,7 +248,7 @@ public class Controller {
         alert.setTitle("Сохранение текста");
         alert.setHeaderText(null);
 
-        if (file.SaveToFile(CryptType.getToPrintText()))  //Сохранение в файл
+        if (file.SaveToFile(WorkingCrypt.getToPrintText()))  //Сохранение в файл
             alert.setContentText("Файл успешно сохранён!");
         else
             alert.setContentText("Операция отменена, файл не сохранён!");
@@ -278,49 +257,38 @@ public class Controller {
 
     }
 
-    /**
-     * Сохранение всех символов, даже не задействованых
-     * @param actionEvent
-     */
-    public void CheckSaveAll(ActionEvent actionEvent) {
-        checkSaveAll = ((CheckMenuItem) actionEvent.getSource()).isSelected();
-        CryptType.toLow=checkSaveAll;
-    }
+    @FXML
+    private TableView<CryptRowType> fxTableData;
+    @FXML
+    private TableColumn<CryptRowType, String> fxColumnOld;
+    @FXML
+    private TableColumn<CryptRowType, String> fxColumnNew;
+    @FXML
+    private TableColumn<CryptRowType, Boolean> fxColumnOn;
+    @FXML
+    private TableColumn<CryptRowType, Integer> fxColumnCount;
 
 
-        private ObservableList<SymbRow> symbRows = FXCollections.observableArrayList();
 
-        public ObservableList getSymbRows(){
-            return symbRows;
-        }
 
-        @FXML
-        private TableView<SymbRow> fxTableData;
-        @FXML
-        private TableColumn<SymbRow, String> fxColumnOld;
-        @FXML
-        private TableColumn<SymbRow, String> fxColumnNew;
-        @FXML
-        private TableColumn<SymbRow, Boolean> fxColumnOn;
-        @FXML
-        private TableColumn<SymbRow, Integer> fxColumnCount;
+
 
         public void initialize() {
-
-            SymbRow test = new SymbRow("s", "b", false, 100);
-            fxColumnNew.setEditable(true);
-            fxColumnNew.setCellFactory(TextFieldTableCell.forTableColumn());
-            fxColumnOld.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-            fxColumnNew.setCellValueFactory(cellData -> cellData.getValue().renewProperty());
-            fxColumnOn.setCellValueFactory(cellData -> cellData.getValue().activeProperty().asObject());
+            CryptRowType test = new CryptRowType("A", "B", true, 0);
+            fxColumnOld.setCellValueFactory(cellData -> cellData.getValue().symbolProperty());
             fxColumnCount.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
+
+            fxColumnNew.setCellValueFactory(cellData -> cellData.getValue().replaceProperty());
+            fxColumnNew.setCellFactory(TextFieldTableCell.forTableColumn());
+            fxColumnNew.setEditable(true);
+
+            fxColumnOn.setCellValueFactory(cellData -> cellData.getValue().activeProperty().asObject());
+            fxColumnOn.setEditable(true);
             // заполняем таблицу данными
-            fxTableData.setItems(symbRows);
+            cryptRows.add(test);
+
+            fxTableData.setItems(cryptRows);
 
 
     }
-
-
-
-
 }

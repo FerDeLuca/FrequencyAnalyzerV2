@@ -36,6 +36,16 @@ public class Controller {
         fxSplitter.getItems().clear(); //Очистка существущих окон
         CryptType.clear();
         symbRows.clear();
+        Test test;
+        test = (x,y,z)->(x+y)*z;
+        int result = test.calculate(2,3,4);
+
+
+
+    }
+
+    interface  Test{
+        int calculate(int x,int y,int z);
     }
 
     /**

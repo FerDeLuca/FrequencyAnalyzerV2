@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="SwingWindow">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="10" y="20" width="641" height="420"/>
+    </constraints>
+    <properties>
+      <minimumSize width="600" height="400"/>
+      <preferredSize width="800" height="600"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <toolbar id="f22a6">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="20"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-592138"/>
+          <floatable value="false"/>
+        </properties>
+        <border type="empty" title-position="1"/>
+        <children>
+          <component id="5cd48" class="javax.swing.JButton" binding="mOpen">
+            <constraints/>
+            <properties>
+              <text value="Открыть"/>
+            </properties>
+          </component>
+          <component id="9a368" class="javax.swing.JButton" binding="mSave">
+            <constraints/>
+            <properties>
+              <text value="Сохранить"/>
+            </properties>
+          </component>
+          <component id="18787" class="javax.swing.JButton" binding="mAnalyzer">
+            <constraints/>
+            <properties>
+              <text value="Анализ частот"/>
+            </properties>
+          </component>
+          <component id="f17c3" class="javax.swing.JButton" binding="mReport">
+            <constraints/>
+            <properties>
+              <text value="Отчёт"/>
+            </properties>
+          </component>
+          <hspacer id="c4c3e">
+            <constraints/>
+          </hspacer>
+          <component id="a8679" class="javax.swing.JCheckBox" binding="mCheckColor">
+            <constraints/>
+            <properties>
+              <selected value="true"/>
+              <text value="Подсветка"/>
+            </properties>
+          </component>
+          <component id="e3bf6" class="javax.swing.JCheckBox" binding="mCheckReg">
+            <constraints/>
+            <properties>
+              <selected value="true"/>
+              <text value="Смена регистра"/>
+              <toolTipText value="Перевод всего текста в регистр малых букв"/>
+            </properties>
+          </component>
+          <component id="6c7b6" class="javax.swing.JButton" binding="bSymSave">
+            <constraints/>
+            <properties>
+              <text value="Сохранить"/>
+            </properties>
+          </component>
+          <component id="fc9c" class="javax.swing.JButton" binding="bSymLoad">
+            <constraints/>
+            <properties>
+              <text value="Загрузить"/>
+            </properties>
+          </component>
+        </children>
+      </toolbar>
+      <grid id="8c077" binding="pView" layout-manager="GridLayoutManager" row-count="2" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="318" height="224"/>
+          </grid>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="36ea9" class="javax.swing.JRadioButton" binding="View1">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <selected value="true"/>
+              <text value="Шифр/Результат"/>
+            </properties>
+            <clientProperties>
+              <hideActionText class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+          </component>
+          <component id="68086" class="javax.swing.JRadioButton" binding="View2">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Оригинал"/>
+            </properties>
+          </component>
+          <component id="5437" class="javax.swing.JRadioButton" binding="View3">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Результат"/>
+            </properties>
+          </component>
+          <grid id="16391" binding="pViewText" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <splitpane id="6eadc" binding="tSplit">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="200"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <dividerLocation value="300"/>
+                  <dividerSize value="2"/>
+                  <orientation value="1"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <grid id="17f9" binding="pOriginal" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <splitpane position="left"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <scrollpane id="d1e95" binding="scrollOriginal">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <horizontalScrollBarPolicy value="31"/>
+                          <requestFocusEnabled value="false"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <component id="89061" class="javax.swing.JTextPane" binding="tOriginal">
+                            <constraints/>
+                            <properties>
+                              <contentType value="text/html"/>
+                              <editable value="false"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </scrollpane>
+                    </children>
+                  </grid>
+                  <grid id="5e74d" binding="pResult" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <splitpane position="right"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <scrollpane id="7f47f" binding="scrollResult">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <horizontalScrollBarPolicy value="31"/>
+                          <verticalScrollBarPolicy value="20"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <component id="fb174" class="javax.swing.JTextPane" binding="tResult">
+                            <constraints/>
+                            <properties>
+                              <contentType value="text/html"/>
+                              <editable value="false"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </scrollpane>
+                    </children>
+                  </grid>
+                </children>
+              </splitpane>
+            </children>
+          </grid>
+          <hspacer id="18e09">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+        </children>
+      </grid>
+      <grid id="46cb0" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="4" fill="2" indent="0" use-parent-layout="false">
+            <minimum-size width="210" height="-1"/>
+            <preferred-size width="210" height="-1"/>
+            <maximum-size width="210" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <scrollpane id="ee245" binding="bScrollPane">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <verticalScrollBarPolicy value="22"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="9ced6" class="javax.swing.JTable" binding="bTable" custom-create="true">
+                <constraints/>
+                <properties>
+                  <autoscrolls value="true"/>
+                  <columnSelectionAllowed value="false"/>
+                  <preferredScrollableViewportSize width="450" height="400"/>
+                  <showHorizontalLines value="true"/>
+                  <showVerticalLines value="false"/>
+                  <updateSelectionOnSort value="true"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <component id="1df3c" class="javax.swing.JButton" binding="bUpdateData">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="16"/>
+                <preferred-size width="-1" height="30"/>
+                <maximum-size width="-1" height="30"/>
+              </grid>
+            </constraints>
+            <properties>
+              <margin top="2" left="14" bottom="4" right="14"/>
+              <text value="Обновить данные"/>
+              <verticalAlignment value="1"/>
+              <verticalTextPosition value="1"/>
+            </properties>
+          </component>
+          <component id="382ac" class="javax.swing.JProgressBar" binding="bBar">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <value value="0"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+  <buttonGroups>
+    <group name="ViewOptional" bound="true">
+      <member id="8030e"/>
+      <member id="8030e"/>
+      <member id="d888d"/>
+      <member id="271fa"/>
+      <member id="36ea9"/>
+      <member id="68086"/>
+      <member id="5437"/>
+    </group>
+  </buttonGroups>
+</form>

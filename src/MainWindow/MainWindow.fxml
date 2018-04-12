@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import MainWindow.Controller.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow.Controller">
+    <children>
+        <MenuBar VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Файл">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#OpenProject" text="Открыть шифр…" />
+                        <MenuItem mnemonicParsing="false" onAction="#SaveProject" text="Сохранить результат…" />
+                        <MenuItem mnemonicParsing="false" onAction="#CloseProject" text="Закрыть проект" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#goClose" text="Выход" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Вид">
+                    <items>
+                        <RadioMenuItem id="0" mnemonicParsing="false" onAction="#ChoiceView" selected="true" text="Разделение экрана">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="RadioView" />
+                            </toggleGroup></RadioMenuItem>
+                        <RadioMenuItem id="1" mnemonicParsing="false" onAction="#ChoiceView" text="Только оригинал" toggleGroup="$RadioView" />
+                        <RadioMenuItem id="2" mnemonicParsing="false" onAction="#ChoiceView" text="Только результат " toggleGroup="$RadioView" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Символы замены">
+                    <items>
+                        <CheckMenuItem selected="true" onAction="#CheckSaveAll" mnemonicParsing="false" text="Только используемые" />
+                        <MenuItem mnemonicParsing="false" onAction="#SaveData" text="Сохранить  сомволы..." />
+                        <MenuItem mnemonicParsing="false" onAction="#LoadData" text="Загрузить сомволы..." />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" onAction="#TextParsing" text="Частотный анализ" />
+                <Menu mnemonicParsing="false" text="Параметры">
+                    <items>
+                        <CheckMenuItem selected="true" onAction="#CheckColor" mnemonicParsing="false" text="Подсветка изменений" />
+                        <CheckMenuItem selected="true" onAction="#CheckReg" mnemonicParsing="false" text="Смена регистров" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane prefWidth="649.0" VBox.vgrow="ALWAYS">
+            <children>
+                <HBox alignment="TOP_RIGHT" layoutY="213.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <SplitPane fx:id="fxSplitter" HBox.hgrow="ALWAYS" />
+                        <VBox alignment="BOTTOM_CENTER">
+                            <TableView fx:id="fxTableData" editable="true" maxWidth="180.0" minWidth="180.0" prefWidth="180.0" VBox.vgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn fx:id="fxColumnOld" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Символ" >
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="nameProperty" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn fx:id="fxColumnNew" editable="true" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Замена" >
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="renewProperty" />
+                                        </cellValueFactory>
+
+                                    </TableColumn>
+                                    <TableColumn fx:id="fxColumnOn" editable="true" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" resizable="false" text="Вкл.">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="activeProperty" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn fx:id="fxColumnCount" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Колич." >
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="countProperty" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                            </TableView>
+                            <Button maxWidth="1.7976931348623157E308" onAction="#UpdateData" mnemonicParsing="false" text="Обновить текст" />
+                        </VBox>
+                    </children>
+                </HBox>
+                <BorderPane fx:id="fxProgress" disable="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <center>
+                        <ProgressIndicator maxHeight="50.0" maxWidth="50.0" prefHeight="50.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+                    </center>
+                    <cursor>
+                        <Cursor fx:constant="WAIT" />
+                    </cursor>
+                </BorderPane>
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

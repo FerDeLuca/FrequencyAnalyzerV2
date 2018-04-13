@@ -1,20 +1,24 @@
-package Basic;
-
+package Functionality;
+/*Выполнено*/
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class tFile{
-    FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Текстовый файл (*.txt)", "*.txt");
     public Stage stage;
+    FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+            "Текстовый файл (*.txt)",
+            "*.txt");
+
     public tFile(){
         stage=new Stage();
     }
+
+    /**
+     * Выбор файла и считвание
+     * @return  строка
+     */
     public String ReadFile() {
 
         FileChooser fileChooser = new FileChooser();//Экземпляр
@@ -32,6 +36,11 @@ public class tFile{
         return null;
     }
 
+    /**
+     * Сохранение объекта в файл
+     * @param obj   объект для сохранения
+     * @return  результат сохранения
+     */
     public boolean SaveToFile(Object obj){
         boolean comf=false; //Результат выполнения
         FileChooser fileChooser = new FileChooser();//Экземпляр
@@ -45,6 +54,12 @@ public class tFile{
         return comf;
     }
 
+    /**
+     * Сохранение текста в файл
+     * @param content   Текст
+     * @param file      Путь к файлу
+     * @return          Результат сохранения
+     */
     private boolean saveTextToFile(String content, File file) {
         try {
             PrintWriter writer;
@@ -52,7 +67,7 @@ public class tFile{
             writer.println(content);
             writer.close();
         } catch (IOException ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
             return false;
         }
         return true;

@@ -12,10 +12,10 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResource("MainWindow.fxml"));
         primaryStage.setTitle("Частотный анализ");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
-        primaryStage.setMinWidth(600);
-        primaryStage.setMinHeight(400);
+
+
 
         //Информирование контроллера о списке строк
         mwController contrl = loader.getController();

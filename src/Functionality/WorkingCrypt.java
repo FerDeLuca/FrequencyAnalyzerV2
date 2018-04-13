@@ -2,6 +2,7 @@ package Functionality;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -24,9 +25,6 @@ public final class WorkingCrypt {
         colorText=true;
         writeAll=true;
     }
-
-
-
 
     //Очистка класса
     public static void clearData(boolean clearRows,boolean clearText){

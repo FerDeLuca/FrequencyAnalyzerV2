@@ -1,5 +1,6 @@
 package MainWindow;
 
+import ChartsWindow.SubWindow;
 import Functionality.*;
 
 import javafx.beans.property.SimpleBooleanProperty;
@@ -20,18 +21,19 @@ import javafx.scene.web.WebView;
 import javafx.util.Callback;
 
 import static javafx.scene.input.KeyCode.T;
-//TODO Сделать jar и exe фалы. Проверить на версии 8
+//TODO Сделать jar и exe фалы. Проверить на версии
 public class mwController {
 
     ObservableList<CryptRowType> cryptRows = WorkingCrypt.cryptRows;
+
+    @FXML
+    private Menu fxWindow2;
     @FXML
     private WebView fxTextOriginal;
     @FXML
     private WebView fxTextResult;
     @FXML
     private SplitPane fxSplitter;
-    @FXML
-    private BorderPane fxProgress;
 
     /**
      * Закрыть проект
@@ -144,10 +146,6 @@ public class mwController {
             fxTextResult.getEngine().loadContent(WorkingCrypt.getModifiedText(), "text/html");
         }
 
-    }
-
-    public void TextParsing(ActionEvent actionEvent) {
-        //TODO Сделать окно с анализом и графиком
     }
 
     /**
@@ -292,9 +290,34 @@ public class mwController {
 
         //заполняем таблицу данными
         fxTableData.setItems(cryptRows);
+
+        //Организация меню как кнопки
+        final MenuItem menuItem = new MenuItem("Dummy_menuItem");
+        fxWindow2.getItems().add(menuItem);
+        menuItem.setOnAction(fxWindow2.getOnAction());
+        fxWindow2.addEventHandler(Menu.ON_SHOWN, event -> fxWindow2.hide());
+        fxWindow2.addEventHandler(Menu.ON_SHOWING, event -> fxWindow2.fire());
+
+        //Добавление слушателя (открытие окна)
+        fxWindow2.showingProperty().addListener(
+                (observableValue, oldValue, newValue) -> {
+                    if (newValue) {
+                        try {
+                            new SubWindow();
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        fxWindow2.getItems().get(0).fire();
+                    }
+                }
+        );
+
+
     }
 
-    public void EndReplaceEdit(TableColumn.CellEditEvent<CryptRowType,String> cryptRowTypeStringCellEditEvent) {
+    public void EndReplaceEdit(TableColumn.CellEditEvent<CryptRowType, String> cryptRowTypeStringCellEditEvent) {
         cryptRowTypeStringCellEditEvent.getRowValue();
     }
+
 }

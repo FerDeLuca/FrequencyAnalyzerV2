@@ -48,7 +48,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#LoadData" text="Загрузить сомволы..." />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" onAction="#TextParsing" text="Частотный анализ" />
+                <Menu fx:id="fxWindow2" mnemonicParsing="false" text="Частотный анализ" />
                 <Menu mnemonicParsing="false" text="Параметры">
                     <items>
                         <CheckMenuItem mnemonicParsing="false" onAction="#CheckColor" selected="true" text="Подсветка изменений" />

@@ -1,8 +1,12 @@
 package Functionality;
 /*Выполнено*/
+
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.io.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 
 public class tFile{

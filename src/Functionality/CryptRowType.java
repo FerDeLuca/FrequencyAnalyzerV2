@@ -1,6 +1,8 @@
 package Functionality;
 /*Завершено*/
-import javafx.beans.property.*;
+
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class CryptRowType {
     private SimpleCharacterProperty symbol;

@@ -5,8 +5,8 @@ import javafx.beans.property.*;
 public class CryptRowType {
     private SimpleCharacterProperty symbol;
     private SimpleCharacterProperty replace;
-    private SimpleIntegerProperty count;
     private SimpleBooleanProperty active;
+    private SimpleIntegerProperty count;
 
     public CryptRowType(){
         this(" "," ",false,0);
@@ -14,6 +14,7 @@ public class CryptRowType {
     public CryptRowType(String symbol, int count){
         this(symbol," ",false,count);
     }
+
     public CryptRowType(String symbol, String replace, boolean active, int count){
         this.symbol = new SimpleCharacterProperty(symbol);
         this.replace = new SimpleCharacterProperty(replace);

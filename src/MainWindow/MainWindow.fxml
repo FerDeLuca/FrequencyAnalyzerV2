@@ -17,10 +17,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import MainWindow.mwController.*?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow.mwController">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow.mwController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -45,7 +43,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Символы замены">
                     <items>
-                        <CheckMenuItem selected="true" onAction="#CheckSaveAll" mnemonicParsing="false" text="Только используемые" />
+                        <CheckMenuItem mnemonicParsing="false" onAction="#CheckSaveAll" text="Только используемые" />
                         <MenuItem mnemonicParsing="false" onAction="#SaveData" text="Сохранить  сомволы..." />
                         <MenuItem mnemonicParsing="false" onAction="#LoadData" text="Загрузить сомволы..." />
                     </items>
@@ -53,8 +51,8 @@
                 <Menu mnemonicParsing="false" onAction="#TextParsing" text="Частотный анализ" />
                 <Menu mnemonicParsing="false" text="Параметры">
                     <items>
-                        <CheckMenuItem selected="true" onAction="#CheckColor" mnemonicParsing="false" text="Подсветка изменений" />
-                        <CheckMenuItem selected="true" onAction="#CheckReg" mnemonicParsing="false" text="Смена регистров" />
+                        <CheckMenuItem mnemonicParsing="false" onAction="#CheckColor" selected="true" text="Подсветка изменений" />
+                        <CheckMenuItem mnemonicParsing="false" onAction="#CheckReg" selected="true" text="Смена регистров" />
                     </items>
                 </Menu>
             </menus>
@@ -67,30 +65,13 @@
                         <VBox alignment="BOTTOM_CENTER">
                             <TableView fx:id="fxTableData" editable="true" maxWidth="180.0" minWidth="180.0" prefWidth="180.0" VBox.vgrow="ALWAYS">
                                 <columns>
-                                    <TableColumn fx:id="fxColumnOld" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Символ" >
-                                        <cellValueFactory>
-                                            <PropertyValueFactory property="nameProperty" />
-                                        </cellValueFactory>
-                                    </TableColumn>
-                                    <TableColumn fx:id="fxColumnNew" editable="true" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Замена" >
-                                        <cellValueFactory>
-                                            <PropertyValueFactory property="renewProperty" />
-                                        </cellValueFactory>
-
-                                    </TableColumn>
-                                    <TableColumn fx:id="fxColumnOn" editable="true" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" resizable="false" text="Вкл.">
-                                        <cellValueFactory>
-                                            <PropertyValueFactory property="activeProperty" />
-                                        </cellValueFactory>
-                                    </TableColumn>
-                                    <TableColumn fx:id="fxColumnCount" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Колич." >
-                                        <cellValueFactory>
-                                            <PropertyValueFactory property="countProperty" />
-                                        </cellValueFactory>
-                                    </TableColumn>
+                                    <TableColumn fx:id="fxColumnOld" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Символ" />
+                                    <TableColumn fx:id="fxColumnNew" editable="true" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Замена" />
+                                    <TableColumn fx:id="fxColumnOn" editable="true" maxWidth="25.0" minWidth="30.0" prefWidth="30.0" resizable="false" text="Вкл." />
+                                    <TableColumn fx:id="fxColumnCount" editable="false" maxWidth="45.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Колич." />
                                 </columns>
                             </TableView>
-                            <Button maxWidth="1.7976931348623157E308" onAction="#UpdateData" mnemonicParsing="false" text="Обновить текст" />
+                            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#UpdateData" text="Обновить текст" />
                         </VBox>
                     </children>
                 </HBox>

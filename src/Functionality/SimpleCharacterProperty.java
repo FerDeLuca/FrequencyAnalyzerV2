@@ -40,14 +40,18 @@ public class SimpleCharacterProperty extends StringPropertyBase {
     }
 
     public void set(String newValue) {
-        if (newValue != null && newValue.length()>0) {
-            if (newValue.charAt(0) == ' ') {
-                super.set(String.valueOf(newValue.trim().charAt(0)));
-            } else {
-                super.set(String.valueOf(newValue.charAt(0)));
+        try {
+            if (newValue != null) {
+                if (newValue.length()==1) {
+                    super.set(String.valueOf(newValue.charAt(0)));
+                } else {
+                    super.set(String.valueOf(newValue.trim().charAt(0)));
+                }
+            }else {
+                super.set(" ");
             }
-        }else {
-            super.set(" ");
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -9,9 +9,9 @@ import java.util.StringJoiner;
 
 
 public final class WorkingCrypt {
-    public static boolean toLow;            //Смена регистра
-    public static boolean colorText;        //Подстветка изменений
-    public static boolean writeAll;         //Подстветка изменений
+    public static boolean toLow=true;            //Смена регистра
+    public static boolean colorText=true;        //Подстветка изменений
+    public static boolean writeAll=true;         //Подстветка изменений
 
     public static ObservableList<CryptRowType> cryptRows= FXCollections.observableArrayList();//Список символов для замены в тексте
 
@@ -22,7 +22,7 @@ public final class WorkingCrypt {
         clearData(true,true);
         toLow=true;
         colorText=true;
-        writeAll=false;
+        writeAll=true;
     }
 
 
@@ -194,6 +194,7 @@ public final class WorkingCrypt {
         charMap.remove(',');
         charMap.remove('!');
         charMap.remove('?');
+        charMap.remove('-');
 
         //Очистка прошлых строк
         clearData(true,false);
@@ -204,8 +205,6 @@ public final class WorkingCrypt {
             Character key = it.next();
             cryptRows.add(new CryptRowType(key.toString(),charMap.get(key)));
         }
-
-        //TODO Можно добавить упорядоченный список символов
         charMap.clear();    // Очистка памяти
         updateModifiedText();
     }
@@ -217,7 +216,7 @@ public final class WorkingCrypt {
      */
     public static int getColumnName(String name){
         for (int i = 0; i< cryptRows.size(); i++)
-            if(cryptRows.get(i).getSymbol()==name)
+            if(cryptRows.get(i).getSymbol().equals(name))
                 return i;
         return -1;
     }

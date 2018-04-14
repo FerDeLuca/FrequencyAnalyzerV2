@@ -7,7 +7,10 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class tFile{
     public Stage stage;
@@ -30,13 +33,23 @@ public class tFile{
         fileChooser.getExtensionFilters().add(extFilter);
 
         File file = fileChooser.showOpenDialog(stage);
+
+
+
         if (file != null) {
             try {
-                return new String(Files.readAllBytes(file.toPath()));
+                String s=  Files.readAllLines(Paths.get(file.getPath()), StandardCharsets.UTF_8).toString();
+                s=s.replaceAll("[\\[.\\]+]", "");
+                s=s.replace(", ", "\r\n");
+                return s;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+
+
+
         return null;
     }
 

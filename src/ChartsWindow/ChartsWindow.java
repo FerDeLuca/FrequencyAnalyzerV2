@@ -12,6 +12,8 @@ import javafx.scene.control.Tab;
 
 import java.io.ObjectInputStream;
 import java.sql.Time;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -31,6 +33,8 @@ public class ChartsWindow {
     private XYChart.Series series22 = new XYChart.Series();
     private XYChart.Series series3 = new XYChart.Series();
 
+    private String activeTab="1";
+
     public void initialize() {
         fxChoiceStandart.getItems().add("Английский стандарт");
         fxChoiceStandart.getItems().add("Русский стандарт");
@@ -45,6 +49,7 @@ public class ChartsWindow {
         // Тут покоятся костыли.
         fxChoiceStandart.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             setSeries2(fxChoiceStandart.getSelectionModel().getSelectedIndex());
+            UpdateBar(activeTab);
         }));
         setSeries1(WorkingCrypt.cryptRows,WorkingCrypt.getOriginalText().length());
     }
@@ -52,27 +57,26 @@ public class ChartsWindow {
     /**
      * Выбор данных для таблиц
      */
-    public void setSeries1(ObservableList<CryptRowType> cryptData,int strSize) {
+    private void setSeries1(ObservableList<CryptRowType> cryptData, int strSize) {
         series1.getData().clear();
         series21.getData().clear();
         series1.setName("Пользовательские данные");
         series21.setName("Пользовательские данные");
-
-            double sizePercent= strSize>0 ? 1/strSize : 1;
-
+        double sizePercent=100;
+        if(strSize>0)
+            sizePercent=100d/strSize;
         //Создание промежуточного класса для ортировки
-        Map<Number,String> treeMap = new TreeMap<>();
-        if(WorkingCrypt.toLow)
-            for(CryptRowType crt: cryptData)
+        Map<Number,String> treeMap = new TreeMap<>(Collections.reverseOrder());
+        for(CryptRowType crt: cryptData)
+            if(WorkingCrypt.toLow)
                 treeMap.put(crt.getCount()*sizePercent,crt.getSymbol().toUpperCase());
-        else
-            for(CryptRowType crt: cryptData)
+            else
                 treeMap.put(crt.getCount()*sizePercent,crt.getSymbol());
 
         //Сборка отсортированных данных для гистограммы
         for(Map.Entry<Number,String> cell:treeMap.entrySet()){
-            series1.getData().add(new XYChart.Data(cell.getValue(), cell.getKey()));
-            series21.getData().add(new XYChart.Data(cell.getValue(), cell.getKey()));
+            series1.getData().add(new XYChart.Data(cell.getValue(),cell.getKey()));
+            series21.getData().add(new XYChart.Data(cell.getValue(),cell.getKey()));
         }
         //Передача данных в гистограммы
 
@@ -83,7 +87,7 @@ public class ChartsWindow {
      * Выбор данных для таблиц
      * @param selectedIndex индекс
      */
-    public void setSeries2(int selectedIndex) {
+    private void setSeries2(int selectedIndex) {
         switch (selectedIndex) {
             case 0:
                 series22=SetEngStandart();
@@ -100,6 +104,8 @@ public class ChartsWindow {
             default:
                 return;
         }
+       // series3.getNode().setStyle("-fx-bar-fill: #6dce80;");
+        //series22.getNode().setStyle("-fx-bar-fill: green;");
     }
 
     private XYChart.Series SetEngStandart() {
@@ -210,24 +216,35 @@ public class ChartsWindow {
         return series1;
     }
 
-    //TODO Написать коррктный переход между вкладками
-
-    public void ChangeTab(Event event) {
-    if(((Tab)event.getTarget()).getId().equals("1")){
-            fxBarStandart.getData().clear();
-            fxBarStandart.layout();
-            fxBarStandart.getData().setAll(series1);
-        }else if(((Tab)event.getTarget()).getId().equals("2")){
-            fxBarCompare.getData().clear();
-            fxBarCompare.layout();
-            fxBarCompare.getData().setAll(series21,series22);
-    }else if(((Tab)event.getTarget()).getId().equals("3")){
-            fxBarText.getData().clear();
-            fxBarText.layout();
-            fxBarText.getData().setAll(series3);
-        }
-
+    public void ChangeTab(Event event){
+        activeTab=((Tab)event.getTarget()).getId();
+        UpdateBar(activeTab);
         if(fxChoiceStandart!=null)
             fxChoiceStandart.setVisible(!((Tab)event.getTarget()).getId().equals("1"));
+    }
+
+    private void UpdateBar(String choice) {
+        switch (choice) {
+            case "1":
+                if(fxBarText.getData()!=null)
+                    fxBarText.getData().clear();
+                fxBarText.layout();
+                fxBarText.getData().add(series1);
+                break;
+
+            case "2":
+                if(fxBarCompare.getData()!=null)
+                    fxBarCompare.getData().clear();
+                fxBarStandart.layout();
+                fxBarCompare.getData().addAll(series22,series21);
+                break;
+
+            case "3":
+                if(fxBarStandart.getData()!=null)
+                    fxBarStandart.getData().clear();
+                fxBarStandart.layout();
+                fxBarStandart.getData().add(series3);
+                break;
+        }
     }
 }

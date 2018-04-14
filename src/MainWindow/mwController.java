@@ -21,7 +21,6 @@ import javafx.scene.web.WebView;
 import javafx.util.Callback;
 
 import static javafx.scene.input.KeyCode.T;
-//TODO Сделать jar и exe фалы. Проверить на версии
 public class mwController {
 
     ObservableList<CryptRowType> cryptRows = WorkingCrypt.cryptRows;

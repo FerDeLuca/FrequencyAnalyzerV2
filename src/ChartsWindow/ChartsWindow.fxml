@@ -9,14 +9,14 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ChartsWindow.ChartsWindow">
+<AnchorPane minHeight="400.0" minWidth="800.0" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ChartsWindow.ChartsWindow">
    <opaqueInsets>
       <Insets />
    </opaqueInsets>
    <TabPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Tab id="1" onSelectionChanged="#ChangeTab" text="Частота символов в тексте">
          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <BarChart fx:id="fxBarText" alternativeRowFillVisible="false" animated="false" barGap="5.0" categoryGap="4.0" legendVisible="false" title="Частота символов в тексте" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <BarChart fx:id="fxBarText" alternativeRowFillVisible="false" animated="false" categoryGap="5.0" legendVisible="false" stylesheets="@BarStyle.css" title="Частота символов в тексте" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>
@@ -26,9 +26,9 @@
             </BarChart>
          </AnchorPane>
       </Tab>
-      <Tab id="2" text="Сравнение с раскладкой" onSelectionChanged="#ChangeTab">
+      <Tab id="2" onSelectionChanged="#ChangeTab" text="Сравнение с раскладкой">
          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <BarChart fx:id="fxBarCompare" alternativeRowFillVisible="false" animated="false" barGap="5.0" categoryGap="4.0" title="Сравнение данных" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <BarChart fx:id="fxBarCompare" alternativeRowFillVisible="false" animated="false" categoryGap="5.0" stylesheets="@BarStyleRev.css" title="Сравнение данных" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>
@@ -38,9 +38,9 @@
             </BarChart>
          </AnchorPane>
       </Tab>
-      <Tab id="3" text="Стандарты символов" onSelectionChanged="#ChangeTab">
+      <Tab id="3" onSelectionChanged="#ChangeTab" text="Стандарты символов">
          <AnchorPane prefHeight="200.0" prefWidth="200.0">
-            <BarChart fx:id="fxBarStandart" alternativeRowFillVisible="false" animated="false" barGap="5.0" categoryGap="4.0" focusTraversable="true" legendVisible="false" title="Средняя частота символов" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <BarChart fx:id="fxBarStandart" alternativeRowFillVisible="false" animated="false" categoryGap="5.0" focusTraversable="true" legendVisible="false" stylesheets="@BarStyleRev.css" title="Средняя частота символов" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>
@@ -51,5 +51,5 @@
          </AnchorPane>
       </Tab>
    </TabPane>
-   <ComboBox visible="false" fx:id="fxChoiceStandart" prefWidth="150.0" promptText="Выбор данных" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="33.0" />
+   <ComboBox fx:id="fxChoiceStandart" prefWidth="150.0" promptText="Выбор данных" visible="false" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="33.0" />
 </AnchorPane>
